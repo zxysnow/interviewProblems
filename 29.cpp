@@ -36,6 +36,23 @@ void wallsAndGates(vector<vector<int>>& rooms) {
             }
         }
     }
+    int dx[4] = {0, 1, 0, -1};
+    int dy[4] = {1, 0, -1, 0};
+    while (!que.empty()) {
+        int cnt = que.size();
+        for (int i = 0; i < cnt; i++) {
+            auto cur = que.front();
+            que.pop();
+            int x = cur.first, y = cur.second;
+            for (int k = 0; k < 4; k++) {
+                int xx = x + dx[k], yy = y + dy[k];
+                if (xx < n && xx >= 0 && yy < m && yy >= 0 && rooms[xx][yy] > rooms[x][y]) {
+                    rooms[xx][yy] = rooms[x][y] + 1;
+                    que.push({xx, yy});
+                }
+            }
+        }
+    }
 }
 int main() {
     int INF = INT_MAX;
